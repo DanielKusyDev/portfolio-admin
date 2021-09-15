@@ -6,7 +6,7 @@ from apps.portfolio.models_utils import get_encoded_file_name
 class Project(models.Model):
     name = models.CharField(max_length=127)
     description = models.TextField()
-    url = models.URLField()
+    url = models.URLField(null=True, blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -17,7 +17,7 @@ class ProjectPageSection(models.Model):
         to=Project, on_delete=models.CASCADE, related_name="sections"
     )
     number = models.PositiveIntegerField()
-    header = models.CharField(max_length=511)
+    header = models.CharField(max_length=511, null=True, blank=True)
     text_body = models.TextField()
 
     def __str__(self) -> str:

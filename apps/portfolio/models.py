@@ -13,9 +13,7 @@ class Project(models.Model):
 
 
 class ProjectPageSection(models.Model):
-    project = models.ForeignKey(
-        to=Project, on_delete=models.CASCADE, related_name="sections"
-    )
+    project = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="sections")
     number = models.PositiveIntegerField()
     header = models.CharField(max_length=511, null=True, blank=True)
     text_body = models.TextField()
@@ -26,9 +24,7 @@ class ProjectPageSection(models.Model):
 
 class SectionMedia(models.Model):
     image = models.ImageField(upload_to=get_encoded_file_name)
-    section = models.ForeignKey(
-        to=ProjectPageSection, on_delete=models.CASCADE, related_name="media"
-    )
+    section = models.ForeignKey(to=ProjectPageSection, on_delete=models.CASCADE, related_name="media")
 
     def __str__(self) -> str:
         return f"{self.section.project}, {self.section.number}, {self.image.name}"

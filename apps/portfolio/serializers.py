@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.portfolio.models import Project, SectionMedia, ProjectPageSection
+from apps.portfolio.models import Project, ProjectPageSection, SectionMedia
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -10,11 +10,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class PageSectionSerializer(serializers.ModelSerializer):
-    media = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='portfolio:section_media-detail'
-    )
+    media = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name="portfolio:section_media-detail")
 
     class Meta:
         model = ProjectPageSection

@@ -1,12 +1,9 @@
 import django_filters
 from rest_framework.viewsets import ModelViewSet
 
-from apps.portfolio.serializers import (
-    ProjectSerializer,
-    PageSectionSerializer,
-    SectionMediaSerializer,
-)
 from apps.portfolio.models import Project, ProjectPageSection, SectionMedia
+from apps.portfolio.serializers import (
+    PageSectionSerializer, ProjectSerializer, SectionMediaSerializer,)
 
 
 class ProjectViewSet(ModelViewSet):

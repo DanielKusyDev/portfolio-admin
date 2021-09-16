@@ -27,7 +27,6 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = env.list("CORS_WHITELIST")
-print(CORS_ORIGIN_WHITELIST)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

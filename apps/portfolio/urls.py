@@ -8,7 +8,6 @@ router = routers.DefaultRouter()
 
 router.register("projects", views.ProjectViewSet, basename="projects")
 router.register("sections", views.PageSectionViewSet, basename="sections")
-router.register("section_media", views.SectionMediaViewSet, basename="section_media")
 
 urlpatterns = [
     path("", include(router.urls)),

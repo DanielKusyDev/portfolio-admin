@@ -8,14 +8,18 @@ class Project(models.Model):
     description = models.TextField()
     code_url = models.URLField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
-    thumbnail = models.ImageField(upload_to=get_encoded_file_name, null=True, blank=True)
+    thumbnail = models.ImageField(
+        upload_to=get_encoded_file_name, null=True, blank=True
+    )
 
     def __str__(self) -> str:
         return self.name
 
 
 class ProjectPageSection(models.Model):
-    project = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="sections")
+    project = models.ForeignKey(
+        to=Project, on_delete=models.CASCADE, related_name="sections"
+    )
     number = models.PositiveIntegerField()
     header = models.CharField(max_length=511, null=True, blank=True)
     text_body = models.TextField()
@@ -26,3 +30,9 @@ class ProjectPageSection(models.Model):
 
     class Meta:
         unique_together = ["project", "number"]
+
+
+class SocialMedia(models.Model):
+    name = models.CharField(max_length=125, primary_key=True)
+    url = models.URLField()
+    icon = models.ImageField(upload_to=get_encoded_file_name)

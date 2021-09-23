@@ -40,12 +40,6 @@ jobs:
       run: |
         poetry install
 
-    - name: Tak
-      run: |
-        echo "$(poetry env use python)"
-        echo "$(python -V)"
-        echo "$(python3 -V)"
-
     - name: Run migrations
       env:
         SECRET_KEY: secret
@@ -57,7 +51,7 @@ jobs:
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
       run: |
-        python manage.py migrate
+        poetry run python manage.py migrate
 
     - name: Upload artifact for deployment jobs
       uses: actions/upload-artifact@v2

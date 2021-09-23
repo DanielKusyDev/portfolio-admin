@@ -14,6 +14,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:alpine
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: pass
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
 
@@ -28,6 +38,19 @@ jobs:
     - name: Install dependencies
       run: |
         poetry install
+
+    - name: Run migrations
+      env:
+        SECRET_KEY: secret
+        ALLOWED_HOSTS: 127.0.0.1
+        DB_NAME: postgres
+        DB_USER: root
+        DB_PASSWORD: pass
+        DB_DRIVER: django.db.backends.postgresql
+        DB_HOST: 127.0.0.1
+        DB_PORT: 5432
+      run: |
+        python manage.py migrate
 
     - name: Upload artifact for deployment jobs
       uses: actions/upload-artifact@v2

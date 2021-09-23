@@ -15,16 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:alpine
-        env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: pass
-          POSTGRES_DB: postgres
-        ports:
-          - 5432:5432
-
     steps:
     - uses: actions/checkout@v2
 
@@ -45,12 +35,8 @@ jobs:
         DEBUG: false
         SECRET_KEY: secret
         ALLOWED_HOSTS: 127.0.0.1
-        DB_NAME: postgres
-        DB_USER: root
-        DB_PASSWORD: pass
-        DB_DRIVER: django.db.backends.postgresql
-        DB_HOST: 127.0.0.1
-        DB_PORT: 5432
+        DB_DRIVER: django.db.backends.sqlite3
+        DB_NAME: portfolio_db
       run: |
         poetry run python manage.py migrate
 

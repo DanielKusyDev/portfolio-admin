@@ -63,12 +63,16 @@ DATABASES = {
     "default": {
         "ENGINE": env.str("DB_DRIVER"),
         "NAME": env.str("DB_NAME"),
+    },
+}
+
+if DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
+    DATABASES["default"].update({
         "USER": env.str("DB_USER"),
         "PASSWORD": env.str("DB_PASSWORD"),
         "PORT": env.str("DB_PORT"),
         "HOST": env.str("DB_HOST"),
-    },
-}
+    })
 
 AUTH_PASSWORD_VALIDATORS = [
     {

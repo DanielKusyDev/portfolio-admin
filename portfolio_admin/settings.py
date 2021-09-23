@@ -9,8 +9,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env.read_env(str(BASE_DIR / ".env"))
 
 SECRET_KEY = env.str("SECRET_KEY")
-DEBUG = env.bool("DEBUG")
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
+DEBUG = env.bool("DEBUG", False)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-CORS_ORIGIN_WHITELIST = env.list("CORS_WHITELIST")
+CORS_ORIGIN_WHITELIST = env.list("CORS_WHITELIST", [])
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

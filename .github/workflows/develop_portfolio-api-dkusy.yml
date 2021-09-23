@@ -35,7 +35,11 @@ jobs:
     - name: Setup Poetry
       uses: Gr1N/setup-poetry@v7
 
-    - name: Install dependencies and run migrations
+    - name: Install dependencies
+      run: |
+        poetry install
+
+    - name: Run migrations
       env:
         SECRET_KEY: secret
         ALLOWED_HOSTS: 127.0.0.1
@@ -46,7 +50,7 @@ jobs:
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
       run: |
-        poetry install
+        poetry env use python
         python manage.py migrate
 
     - name: Upload artifact for deployment jobs

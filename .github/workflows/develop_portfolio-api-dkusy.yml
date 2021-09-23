@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - develop
+      - deploy
   workflow_dispatch:
 
 jobs:
@@ -39,6 +40,12 @@ jobs:
       run: |
         poetry install
 
+    - name: Tak
+      run: |
+        echo "$(poetry env use python)"
+        echo "$(python -V)"
+        echo "$(python3 -V)"
+
     - name: Run migrations
       env:
         SECRET_KEY: secret
@@ -50,7 +57,6 @@ jobs:
         DB_HOST: 127.0.0.1
         DB_PORT: 5432
       run: |
-        poetry env use python
         python manage.py migrate
 
     - name: Upload artifact for deployment jobs

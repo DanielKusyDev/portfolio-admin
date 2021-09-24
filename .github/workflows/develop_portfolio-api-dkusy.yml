@@ -32,7 +32,7 @@ jobs:
 
     - name: Run static analysis
       run: |
-        sudo ./scripts/lint.sh
+        ./scripts/lint.sh
 
     - name: Run migrations
       env:

@@ -9,7 +9,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env.read_env(str(BASE_DIR / ".env"))
 
 SECRET_KEY = env.str("SECRET_KEY")
+
+
 DEBUG = env.bool("DEBUG", False)
+
+
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", [])
 
 INSTALLED_APPS = [
@@ -67,12 +71,14 @@ DATABASES = {
 }
 
 if DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
-    DATABASES["default"].update({
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.str("DB_PASSWORD"),
-        "PORT": env.str("DB_PORT"),
-        "HOST": env.str("DB_HOST"),
-    })
+    DATABASES["default"].update(
+        {
+            "USER": env.str("DB_USER"),
+            "PASSWORD": env.str("DB_PASSWORD"),
+            "PORT": env.str("DB_PORT"),
+            "HOST": env.str("DB_HOST"),
+        }
+    )
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -128,20 +134,20 @@ SWAGGER_SETTINGS = {
 }
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': './logs/debug.log',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "./logs/debug.log",
         },
     },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
         },
     },
 }

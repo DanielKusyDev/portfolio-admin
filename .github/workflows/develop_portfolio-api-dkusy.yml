@@ -26,6 +26,10 @@ jobs:
     - name: Setup Poetry
       uses: Gr1N/setup-poetry@v7
 
+    - name: Run static analysis
+      run: |
+        - ./scripts/lint.sh
+
     - name: Install dependencies
       run: |
         poetry install

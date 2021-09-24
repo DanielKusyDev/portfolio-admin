@@ -34,12 +34,11 @@ class SocialMedia(models.Model):
     icon = models.ImageField(upload_to=get_encoded_file_name)
 
 
-class WebsiteSettings(models.Model):
+class PortfolioInfo(models.Model):
     title = models.CharField(max_length=255)
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     avatar = models.ImageField(upload_to=get_encoded_file_name)
     summary = models.TextField()
-    logo = models.ImageField()
     first_name = models.CharField(max_length=255)
 
 

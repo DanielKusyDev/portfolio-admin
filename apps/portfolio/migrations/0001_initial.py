@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
                 ('avatar', models.ImageField(upload_to=apps.portfolio.models_utils.get_encoded_file_name)),
                 ('summary', models.TextField()),
-                ('logo', models.ImageField(upload_to='')),
+                ('logo', models.ImageField(upload_to='', default="")),
                 ('first_name', models.CharField(max_length=255)),
             ],
         ),

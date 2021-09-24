@@ -20,9 +20,9 @@ class SocialMediaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class WebsiteSettingsSerializer(serializers.ModelSerializer):
+class PortfolioInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.WebsiteSettings
+        model = models.PortfolioInfo
         fields = "__all__"
 
 

@@ -1,2 +1,2 @@
-isort . --check
-black . --check
+poetry run isort . --check
+poetry run black . --check

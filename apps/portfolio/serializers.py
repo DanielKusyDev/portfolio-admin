@@ -9,12 +9,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "description", "url", "code_url", "thumbnail"]
 
 
-class PageSectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.ProjectPageSection
-        fields = ["project", "number", "header", "text_body", "image"]
-
-
 class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.SocialMedia

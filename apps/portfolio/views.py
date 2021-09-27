@@ -1,4 +1,3 @@
-import django_filters
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -9,14 +8,6 @@ class ProjectViewSet(ModelViewSet):
     queryset = models.Project.objects.all()
     serializer_class = serializers.ProjectSerializer
     http_method_names = ["get"]
-
-
-class PageSectionViewSet(ModelViewSet):
-    queryset = models.ProjectPageSection.objects.order_by("number")
-    serializer_class = serializers.PageSectionSerializer
-    http_method_names = ["get"]
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filterset_fields = ["project"]
 
 
 class SocialMediaApiView(ListAPIView):

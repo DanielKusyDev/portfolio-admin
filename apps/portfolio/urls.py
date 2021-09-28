@@ -12,5 +12,5 @@ urlpatterns = [
     path("", include(router.urls)),
     path("info/social_media/", views.SocialMediaApiView.as_view()),
     path("info/my_bullets/", views.MyBulletApiView.as_view()),
-    path("info/portfolio/", views.PortfolioInfoApiView.as_view()),
+    path("info/settings/", views.WebsiteSettingsApiView.as_view()),
 ]

@@ -6,7 +6,7 @@ from apps.portfolio import models
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Project
-        fields = ["id", "name", "description", "url", "code_url", "thumbnail"]
+        fields = ["id", "name", "short_description", "description", "url", "code_url", "thumbnail"]
 
 
 class SocialMediaSerializer(serializers.ModelSerializer):
@@ -15,9 +15,9 @@ class SocialMediaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PortfolioInfoSerializer(serializers.ModelSerializer):
+class WebsiteSettingsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.PortfolioInfo
+        model = models.WebsiteSettings
         fields = "__all__"
 
 

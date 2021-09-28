@@ -1,4 +1,6 @@
+from django.core import validators
 from django.db import models
+from marshmallow import ValidationError
 
 from apps.portfolio.models_utils import get_encoded_file_name
 
@@ -29,14 +31,6 @@ class SocialMedia(models.Model):
     icon = models.ImageField(upload_to=get_encoded_file_name)
 
 
-class PortfolioInfo(models.Model):
-    title = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255, null=True, blank=True)
-    avatar = models.ImageField(upload_to=get_encoded_file_name)
-    summary = models.TextField()
-    first_name = models.CharField(max_length=255)
-
-
 class MyBullet(models.Model):
     name = models.CharField(max_length=255)
     group = models.ForeignKey(to="BulletGroup", related_name="bullets", on_delete=models.CASCADE)
@@ -59,3 +53,24 @@ class BulletGroup(models.Model):
 
     class Meta:
         ordering = ["order", "id"]
+
+
+class WebsiteSettings(models.Model):
+    main_title = models.CharField(max_length=128)
+    sub_title = models.CharField(max_length=256, null=True, blank=True)
+    summary = models.CharField(max_length=512, null=True, blank=True)
+    first_name = models.CharField(max_length=128)
+    last_name = models.CharField(max_length=128, null=True, blank=True)
+    email = models.CharField(max_length=128, null=True, blank=True)
+    theme_color = models.CharField(max_length=6, validators=[validators.MaxLengthValidator(6)], default="25639e")
+    avatar = models.ImageField(null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "website settings"
+        verbose_name = "website settings"
+
+    def save(self, *args, **kwargs):
+        if not self.pk and WebsiteSettings.objects.exists():
+            raise ValidationError("There can be only one instance of WebsiteSettings")
+        return super(WebsiteSettings, self).save(*args, **kwargs)

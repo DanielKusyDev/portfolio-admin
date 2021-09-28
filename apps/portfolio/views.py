@@ -20,8 +20,8 @@ class MyBulletApiView(ListAPIView):
     serializer_class = serializers.MyBulletSerializer
 
 
-class PortfolioInfoApiView(RetrieveAPIView):
-    serializer_class = serializers.PortfolioInfoSerializer
+class WebsiteSettingsApiView(RetrieveAPIView):
+    serializer_class = serializers.WebsiteSettingsSerializer
 
-    def get_object(self) -> models.PortfolioInfo:
-        return models.PortfolioInfo.objects.first()
+    def get_object(self) -> models.WebsiteSettings:
+        return models.WebsiteSettings.objects.first()

@@ -9,6 +9,7 @@ router = routers.DefaultRouter()
 router.register("projects", views.ProjectViewSet, basename="projects")
 
 urlpatterns = [
+    path("projects/technologies/", views.TechnologiesApiView.as_view()),
     path("", include(router.urls)),
     path("info/social_media/", views.SocialMediaApiView.as_view()),
     path("info/my_bullets/", views.MyBulletApiView.as_view()),

@@ -3,6 +3,12 @@ from django.db import models
 from marshmallow import ValidationError
 
 from apps.portfolio.models_utils import get_encoded_file_name
+from django.utils.translation import gettext_lazy as _
+
+
+class BrandTypeNameEnum(models.TextChoices):
+    SOCIAL_MEDIA = "SOCIAL", _("Social Media")
+    TECHNOLOGY = "TECH", _("Technology")
 
 
 class Project(models.Model):
@@ -12,6 +18,11 @@ class Project(models.Model):
     code_url = models.URLField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
     thumbnail = models.ImageField(upload_to=get_encoded_file_name, null=True, blank=True)
+    technologies = models.ManyToManyField(
+        to="Brand",
+        related_name="projects",
+        limit_choices_to=dict(brand_type__name=BrandTypeNameEnum.TECHNOLOGY.value),
+    )
 
     def __str__(self) -> str:
         return self.name
@@ -25,10 +36,30 @@ class ProjectImages(models.Model):
         return f"{self.project.name}, {self.image.name}"
 
 
-class SocialMedia(models.Model):
+class BrandType(models.Model):
+    name = models.CharField(max_length=16, choices=BrandTypeNameEnum.choices)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Brand(models.Model):
     name = models.CharField(max_length=125, primary_key=True)
     url = models.URLField()
     icon = models.ImageField(upload_to=get_encoded_file_name)
+    brand_type = models.ForeignKey(to="BrandType", on_delete=models.CASCADE, related_name="brands")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class ProjectTechnology(models.Model):
+    technology = models.ForeignKey(to="Brand", on_delete=models.CASCADE)
+    project = models.ForeignKey(to="Project", on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = "Project technologies"
+        verbose_name = "Project technology"
 
 
 class MyBullet(models.Model):

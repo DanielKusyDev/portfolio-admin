@@ -9,9 +9,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ["id", "name", "short_description", "description", "url", "code_url", "thumbnail"]
 
 
-class SocialMediaSerializer(serializers.ModelSerializer):
+class BrandSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.SocialMedia
+        model = models.Brand
         fields = "__all__"
 
 

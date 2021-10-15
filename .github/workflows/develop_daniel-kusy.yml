@@ -26,18 +26,34 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-      
+  
+      - name: Setup Poetry
+        uses: Gr1N/setup-poetry@v7
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          poetry install
+
+      - name: Run static analysis
+        run: |
+          ./scripts/lint.sh
+
+      - name: Run migrations
+        env:
+          DEBUG: false
+          SECRET_KEY: secret
+          ALLOWED_HOSTS: 127.0.0.1
+          DB_DRIVER: django.db.backends.sqlite3
+          DB_NAME: portfolio_db
+        run: |
+          poetry run python manage.py migrate
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
           name: python-app
           path: |
-            . 
+            .
             !venv/
 
   deploy:

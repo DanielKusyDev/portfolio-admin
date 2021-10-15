@@ -1,9 +1,9 @@
 from django.core import validators
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from marshmallow import ValidationError
 
 from apps.portfolio.models_utils import get_encoded_file_name
-from django.utils.translation import gettext_lazy as _
 
 
 class BrandTypeNameEnum(models.TextChoices):

@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from apps.portfolio import models
 
-
 # @admin.register(models.ProjectTechnology)
 # class ProjectTechnologyAdmin(admin.ModelAdmin):
 #     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):

@@ -20,17 +20,37 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
-          python-version: '3.8'
+          python-version: '3.8.12'
 
-      - name: Create and start virtual environment
+      -name: Set up ODBC
         run: |
-          python -m venv venv
-          source venv/bin/activate
-      
+          apt-get install unixodbc unixodbc-dev
+
+      - name: Setup Poetry
+        uses: Gr1N/setup-poetry@v7
+
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+        run: |
+          poetry config virtualenvs.create false
+          poetry install
+
+      - name: Run static analysis
+        run: |
+          ./scripts/lint.sh
+
+      - name: Run migrations
+        env:
+          DEBUG: false
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALLOWED_HOSTS: 127.0.0.1
+          DB_DRIVER: mssql
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+        run: |
+          poetry run python manage.py migrate
       
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2

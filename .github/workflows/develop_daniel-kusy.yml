@@ -13,6 +13,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: Production
 
     steps:
       - uses: actions/checkout@v2
@@ -21,17 +22,13 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: '3.8'
-
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
   
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v7
 
       - name: Install dependencies
         run: |
+          poetry config virtualenvs.create false
           poetry install
 
       - name: Run static analysis
@@ -41,10 +38,14 @@ jobs:
       - name: Run migrations
         env:
           DEBUG: false
-          SECRET_KEY: secret
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALLOWED_HOSTS: 127.0.0.1
-          DB_DRIVER: django.db.backends.sqlite3
-          DB_NAME: portfolio_db
+          DB_DRIVER: mssql
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
         run: |
           poetry run python manage.py migrate
         

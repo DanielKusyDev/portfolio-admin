@@ -22,6 +22,10 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: '3.8.12'
+
+      -name: Set up ODBC
+        run: |
+          apt-get install unixodbc unixodbc-dev
   
       - name: Setup Poetry
         uses: Gr1N/setup-poetry@v7

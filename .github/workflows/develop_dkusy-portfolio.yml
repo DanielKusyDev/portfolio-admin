@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.8.12'
 
-      -name: Set up ODBC
+      - name: Set up ODBC
         run: |
           apt-get install unixodbc unixodbc-dev
 

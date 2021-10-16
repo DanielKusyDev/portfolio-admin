@@ -81,7 +81,7 @@ if DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
     )
 
 if DATABASES["default"]["ENGINE"] == "mssql":
-    DATABASES["default"]["OPTIONS"] = {"driver": "ODBC Driver 17 for SQL Server"}
+    DATABASES["default"]["OPTIONS"] = {"driver": "ODBC Driver 13 for SQL Server"}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -5,7 +5,7 @@ description = ""
 authors = ["Daniel Kusy <daniel.kusy97@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "3.8.10"
+python = "3.8.12"
 asgiref = "^3.4.1"
 Django = "^3.2.7"
 environs = "^9.3.3"

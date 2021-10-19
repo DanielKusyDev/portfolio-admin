@@ -65,10 +65,12 @@ WSGI_APPLICATION = "portfolio_admin.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": env.str("DB_DRIVER"),
+        "ENGINE": env.str("DB_ENGINE"),
         "NAME": env.str("DB_NAME"),
     },
 }
+if driver := env.str("DB_OPTION_DRIVER"):
+    DATABASES["default"]["OPTIONS"] = {"driver": driver}
 
 if DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
     DATABASES["default"].update(
@@ -79,9 +81,6 @@ if DATABASES["default"]["ENGINE"] != "django.db.backends.sqlite3":
             "HOST": env.str("DB_HOST"),
         }
     )
-
-if DATABASES["default"]["ENGINE"] == "mssql":
-    DATABASES["default"]["OPTIONS"] = {"driver": "ODBC Driver 13 for SQL Server"}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

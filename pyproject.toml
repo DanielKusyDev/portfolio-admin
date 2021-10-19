@@ -16,7 +16,7 @@ django-filter = "^2.4.0"
 django-cors-headers = "^3.8.0"
 generics = "^3.4.0"
 pyodbc = "^4.0.32"
-django-mssql-backend = "^2.8.1"
+mssql-django = "^1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"

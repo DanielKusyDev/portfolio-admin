@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 set -e
 
-systemctl enable ssh
-systemctl start ssh
+/usr/sbin/sshd &
 
 python manage.py migrate
 python manage.py collectstatic --noinput

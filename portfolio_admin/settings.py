@@ -98,23 +98,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    BASE_DIR / Path("static"),
-]
-
-MEDIA_ROOT = BASE_DIR / Path("media")
-MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -160,3 +147,26 @@ LOGGING = {
         },
     },
 }
+
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / Path("static"),
+    ]
+
+    MEDIA_ROOT = BASE_DIR / Path("media")
+    STATIC_URL = "/static/"
+    MEDIA_URL = "/media/"
+else:
+    # Azure Storage for media & static files
+    AZURE_STORAGE_NAME = env.str("AZURE_STORAGE_NAME")
+    AZURE_STORAGE_ACCESS_KEY = env.str("AZURE_STORAGE_ACCESS_KEY")
+    AZURE_MEDIA_CONTAINER_NAME = "portfolio-media"
+    AZURE_STATIC_CONTAINER_NAME = "portfolio-static"
+
+    DEFAULT_FILE_STORAGE = "portfolio_admin.backend.AzureMediaStorage"
+    STATICFILES_STORAGE = "portfolio_admin.backend.AzureStaticStorage"
+    STATIC_LOCATION = "static"
+    MEDIA_LOCATION = "media"
+    AZURE_CUSTOM_DOMAIN = f'{AZURE_STORAGE_NAME}.blob.core.windows.net'
+    STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
